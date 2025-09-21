@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Flores Amarillas para Ti</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #fffde7, #fff9c4, #fceabb);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .card {
+      background: #ffffffdd;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      max-width: 800px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #f9a825;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fdd835; }
+      to   { text-shadow: 0 0 20px #fbc02d; }
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    /* Galería de flores */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .gallery img {
+      width: 180px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Botón sorpresa */
+    .btn {
+      background: linear-gradient(90deg, #fdd835, #f9a825);
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: linear-gradient(90deg, #f9a825, #f57f17);
+    }
+
+    /* Texto sorpresa oculto */
+    .hidden-message {
+      display: none;
+      font-size: 1.5em;
+      color: #d81b60;
+      margin-top: 20px;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Corazones flotando */
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      width: 25px;
+      height: 25px;
+      background: rgba(255, 193, 7, 0.8);
+      transform: rotate(45deg);
+      animation: float 8s infinite ease-in;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: rgba(255, 193, 7, 0.8);
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -12px; left: 0; }
+    .heart::after { left: -12px; top: 0; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-800px) scale(1.5) rotate(45deg); opacity: 0; }
+    }
+
+    /* 📸 Sección de recuerdos */
+    .memories {
+      margin-top: 40px;
+    }
+
+    .memories h2 {
+      font-size: 2em;
+      color: #d81b60;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .memory-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .memory-gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 4px solid #f48fb1;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      transition: transform 0.5s ease, filter 0.5s ease;
+      cursor: pointer;
+    }
+
+    .memory-gallery img:hover {
+      transform: scale(1.1);
+      filter: brightness(1.2) saturate(1.2);
+    }
+
+    /* Animación latido */
+    .memory-gallery img:hover {
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .video-section {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.video-section h2 {
+  font-size: 1.8em;
+  color: #f57f17;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  animation: glowVideo 2s infinite alternate;
+}
+
+@keyframes glowVideo {
+  from { text-shadow: 0 0 10px #fdd835; }
+  to { text-shadow: 0 0 20px #ffca28; }
+}
+
+.video-section video {
+  max-width: 300%;
+  width: 200px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.video-section video:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🥰Flores Amarillas para Ti mi Mar🖤</h1>
+    <p>Porque cada día contigo merece un ramo de amor   ✨</p>
+
+    <div class="gallery">
+      <img src="https://www.kukyflor.com/blog/wp-content/uploads/2023/09/ramo-de-10-girasoles.png" alt="Flores Amarillas 1">
+      <img src="https://floristeriamina.com/wp-content/uploads/2025/02/40-1024x1024.png" alt="Flores Amarillas 2">
+      <img src="https://www.informador.mx/__export/1726680291746/sites/elinformador/img/2024/09/18/flores_amarillas_21_de_septiembre_floricienta_version1726679820328.png_465256610.png" alt="Flores Amarillas 3">
+      <img src="https://cdn0.uncomo.com/es/posts/6/7/9/cual_es_el_significado_de_las_flores_amarillas_26976_paso_2_600.jpg" alt="Flores Amarillas 4">
+    </div>
+
+    <button class="btn" onclick="mostrarMensaje()">🌟 Dale clic aquí 🌟</button>
+    <div class="hidden-message" id="mensaje">
+      🖤 Hoy no pude entregarte flores reales, pero quise darte un detalle distinto. Como programador, encontré la forma de transformarlas en líneas de código y convertirlas en esta pequeña pagina que hice especialmente para ti. No son de papel ni de jardín, pero te aseguro que nacen del alma.🖤
+    </div>
+
+    <!-- ❤️ Nueva sección de recuerdos -->
+    <div class="memories">
+      <h2>📸 Algunas Foticos Nuestras 🖤</h2>
+      <div class="memory-gallery">
+        <img src="img/recuerdo1.jpeg" alt="Recuerdo 1">
+        <img src="img/recuerdo2.jpeg" alt="Recuerdo 2">
+        <img src="img/recuerdo3.jpeg" alt="Recuerdo 3">
+      </div>
+
+      <!-- Nueva sección de video -->
+      <div class="video-section">
+        <h2>🎥 Un Recuerdo Especial 🖤</h2>
+        <video controls autoplay loop muted>
+          <source src="img/videorecuerdo.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+      </div>
+  
+    </div>
+
+    <div class="hearts">
+      <div class="heart" style="left:10%; animation-delay:0s;"></div>
+      <div class="heart" style="left:30%; animation-delay:2s;"></div>
+      <div class="heart" style="left:50%; animation-delay:4s;"></div>
+      <div class="heart" style="left:70%; animation-delay:6s;"></div>
+      <div class="heart" style="left:90%; animation-delay:1s;"></div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarMensaje() {
+      document.getElementById("mensaje").style.display = "block";
+    }
+  </script>
+</body>
+</html>
